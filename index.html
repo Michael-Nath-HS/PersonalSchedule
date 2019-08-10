@@ -25,6 +25,15 @@
         margin-top: 2%;
     }
 
+    #timeLeft {
+        text-align: right;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+
 </style>
 
 <body>
@@ -33,17 +42,17 @@
     <h2 id="timeDisplay" class="text-primary"> Current Time: </h2>
     <div class="discernedEvent">
         <div id="doingDiv">
-            <h3> Right Now, You Should be Doing: </h3>
+            <h4> Right Now, You Should be Doing: </h4>
             <h2 id="doing" class="text-danger"></h2>
         </div>
 
         <div id="passedDiv">
-            <h3>The most recent event that has finished: </h3>
+            <h4>The most recent event that has finished: </h4>
             <h2 id="passed" class="text-info"></h2>
         </div>
 
         <div id="upcomingDiv">
-            <h3> The upcoming event is:</h3>
+            <h4> The upcoming event is:</h4>
             <h2 id="upcoming" class="text-warning"></h2>
         </div>
     </div>
@@ -52,10 +61,16 @@
 <div id="things">
 </div>
 
-<div class="bottomer">
-    <div id="timePast">
-        <h3></h3>
+<div class="grid-container">
+    <div id="timePassed">
+        <h3 class="text-muted">Amount of time since: </h3>
+        <h2 id="prevEvent" class="text-muted"></h2>
     </div>
+    <div id="timeLeft">
+        <h3 class="text-dark">Amount of time left:</h3>
+        <h2 id="nextEvent" class="text-dark"></h2>
+    </div>
+
 </div>
 </body>
 

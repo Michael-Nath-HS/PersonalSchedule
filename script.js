@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     var today = new Date();
     time = today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
     console.log(time);
@@ -45,17 +45,44 @@ window.onload = function() {
             console.log(Keys[Keys.length]);
             if (loc <= 0) {
                 document.getElementById("passed").innerHTML += Keys[Keys.length - 1];
-            }
-            else {
+                document.getElementById("prevEvent").innerHTML += Keys[loc - 1];
+            } else {
                 document.getElementById("passed").innerHTML += Keys[loc - 1];
+                document.getElementById("prevEvent").innerHTML += Keys[loc - 1]
             }
 
-            if (loc === Keys.length - 2) {
+            if (loc === Keys.length - 1) {
                 document.getElementById("passed").innerHTML += Keys[0];
-            }
-            else {
+            } else {
                 document.getElementById("upcoming").innerHTML += Keys[loc + 1];
             }
+            if (loc <= 0) {
+                var prev = (Keys.length - 1);
+            }
+            else {
+                var prev = Keys[loc - 1];
+            }
+
+            var tBeen = ((today.getHours() * 60) + (today.getMinutes())) - ((things[prev][2] * 60) +
+                things[prev][3]);
+            document.getElementById("prevEvent").innerHTML = Math.floor(tBeen / 60) + " Hours "
+            + (tBeen - (Math.floor((tBeen / 60.0)) * 60)) + " Mins";
+
+            if (loc === Keys.length - 1) {
+                var next = 0;
+            }
+
+            else {
+                var next = Keys[loc + 1];
+            }
+
+            var tLeft = ((things[next][0] * 60 ) + (things[next][1])) -
+                ((today.getHours() * 60) + today.getMinutes());
+
+            document.getElementById("nextEvent").innerHTML = Math.floor(tLeft / 60) + " Hours "
+                + (tLeft - (Math.floor((tLeft / 60.0)) * 60)) + " Mins";
+            console.log(tLeft);
         }
     }
+
 };
