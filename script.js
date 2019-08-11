@@ -1,20 +1,21 @@
+var today = new Date();
+var things = {
+    "Sleep": [1, 0, 9, 0],
+    "Break0": [9, 1, 9, 59],
+    "Lab": [10, 0, 15, 30],
+    "Break1": [15, 31, 15, 59],
+    "Schnatter's Lab": [16, 0, 18, 30],
+    "Break2": [18, 31, 19, 29],
+    "Chemistry Olympiad Study Time!": [19, 30, 21, 30],
+    "SAT Studying (ugh)": [21, 31, 22, 0],
+    "Shower Time!": [22, 0, 22, 30],
+    "Eat and Relax": [22, 31, 23, 59]
+};
+var Keys = Object.keys(things);
+
 window.onload = function () {
-    var today = new Date();
     time = today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-    console.log(time);
-    document.getElementById("timeDisplay").innerHTML += time;
-
-
-    var things = {
-        "Sleep": [1, 0, 9, 0],
-        "Lab": [10, 0, 15, 30],
-        "Schnatter's Lab": [16, 0, 18, 30],
-        "Chemistry Olympiad Study Time!": [19, 30, 21, 30],
-        "SAT Studying (ugh)": [21, 31, 22, 0],
-        "Shower Time!": [22, 0, 22, 30],
-        "Eat and Relax": [22, 31, 23, 59]
-    };
-    var Keys = Object.keys(things);
+    document.getElementById("timeDisplay").innerHTML = time;
 
     for (var key in things) {
         var allThings = document.createElement("h4");
@@ -32,7 +33,11 @@ window.onload = function () {
         allThings.setAttributeNode(allColor);
         allThings.setAttributeNode(discern);
     }
-
+}
+setInterval(function () {
+    var today = new Date();
+    time = today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+    document.getElementById("timeDisplay").innerHTML = time;
     for (var key in things) {
         if (((today.getHours() * 60) + today.getMinutes()) > (things[key][0] * 60) + things[key][1] &&
             ((today.getHours() * 60) + today.getMinutes() < ((things[key][2] * 60) + things[key][3]))) {
@@ -40,21 +45,22 @@ window.onload = function () {
             var highlighter = document.createAttribute("class");
             highlighter.value = "text-danger";
             picker.setAttributeNode(highlighter);
-            document.getElementById("doing").innerHTML += key;
+            document.getElementById("doing").innerHTML = key;
             var loc = Keys.indexOf(key);
-            console.log(Keys[Keys.length]);
             if (loc <= 0) {
-                document.getElementById("passed").innerHTML += Keys[Keys.length - 1];
-                document.getElementById("prevEvent").innerHTML += Keys[loc - 1];
+                document.getElementById("passed").innerHTML = Keys[Keys.length - 1];
+                document.getElementById("prevEvent").innerHTML = Keys[loc - 1];
             } else {
-                document.getElementById("passed").innerHTML += Keys[loc - 1];
-                document.getElementById("prevEvent").innerHTML += Keys[loc - 1]
+                document.getElementById("passed").innerHTML = Keys[loc - 1];
+                document.getElementById("prevEvent").innerHTML = Keys[loc - 1]
             }
 
             if (loc === Keys.length - 1) {
-                document.getElementById("passed").innerHTML += Keys[0];
+                document.getElementById("passed").innerHTML = Keys[loc - 1];
+                document.getElementById("upcoming").innerHTML = Keys[0];
             } else {
-                document.getElementById("upcoming").innerHTML += Keys[loc + 1];
+                document.getElementById("upcoming").innerHTML = Keys[loc + 1];
+                document.getElementById("passed").innerHTML = Keys[loc - 1];
             }
             if (loc <= 0) {
                 var prev = (Keys.length - 1);
@@ -66,23 +72,21 @@ window.onload = function () {
             var tBeen = ((today.getHours() * 60) + (today.getMinutes())) - ((things[prev][2] * 60) +
                 things[prev][3]);
             document.getElementById("prevEvent").innerHTML = Math.floor(tBeen / 60) + " Hours "
-            + (tBeen - (Math.floor((tBeen / 60.0)) * 60)) + " Mins";
+                + (tBeen - (Math.floor((tBeen / 60.0)) * 60)) + " Mins";
 
             if (loc === Keys.length - 1) {
-                var next = 0;
+                var next = Keys[0];
             }
 
             else {
                 var next = Keys[loc + 1];
             }
-
             var tLeft = ((things[next][0] * 60 ) + (things[next][1])) -
                 ((today.getHours() * 60) + today.getMinutes());
 
             document.getElementById("nextEvent").innerHTML = Math.floor(tLeft / 60) + " Hours "
                 + (tLeft - (Math.floor((tLeft / 60.0)) * 60)) + " Mins";
-            console.log(tLeft);
         }
     }
+}, 100);
 
-};
