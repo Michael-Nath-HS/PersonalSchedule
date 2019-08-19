@@ -1,15 +1,14 @@
 var today = new Date();
 var things = {
-    "Sleep": [1, 0, 9, 0],
-    "Break0": [9, 1, 9, 59],
-    "Lab": [10, 0, 15, 30],
-    "Break1": [15, 31, 15, 59],
-    "Schnatter's Lab": [16, 0, 18, 30],
-    "Break2": [18, 31, 19, 29],
-    "Chemistry Olympiad Study Time!": [19, 30, 21, 30],
-    "SAT Studying (ugh)": [21, 31, 22, 0],
-    "Shower Time!": [22, 0, 22, 30],
-    "Eat and Relax": [22, 31, 23, 59]
+    "Sleep": [0, 1, 8, 30],
+    "Break0": [8, 31, 9, 59],
+    "Chemsitry Olympiad Study Time!": [10, 0, 13, 30],
+    "Break1": [13, 31, 15, 30],
+    "SAT Study Time!": [15, 31, 16, 30],
+    "Break2": [17, 31, 19, 29],
+    "C.S. Project Time!": [19, 30, 21, 30],
+    "Shower Time!": [21, 31, 22, 0],
+    "Eat and Relax": [22, 1, 23, 59]
 };
 var Keys = Object.keys(things);
 
@@ -47,23 +46,25 @@ setInterval(function () {
             picker.setAttributeNode(highlighter);
             document.getElementById("doing").innerHTML = key;
             var loc = Keys.indexOf(key);
+            console.log(loc);
             if (loc <= 0) {
                 document.getElementById("passed").innerHTML = Keys[Keys.length - 1];
                 document.getElementById("prevEvent").innerHTML = Keys[loc - 1];
+                document.getElementById("upcoming").innerHTML = Keys[loc + 1];
+            } else if (loc === Keys.length - 1) {
+                document.getElementById("passed").innerHTML = Keys[loc - 1];
+                document.getElementById("upcoming").innerHTML = Keys[0];
+                document.getElementById("prevEvent").innerHTML = Keys[loc - 1]
             } else {
+                document.getElementById("upcoming").innerHTML = Keys[loc + 1];
                 document.getElementById("passed").innerHTML = Keys[loc - 1];
                 document.getElementById("prevEvent").innerHTML = Keys[loc - 1]
             }
 
-            if (loc === Keys.length - 1) {
-                document.getElementById("passed").innerHTML = Keys[loc - 1];
-                document.getElementById("upcoming").innerHTML = Keys[0];
-            } else {
-                document.getElementById("upcoming").innerHTML = Keys[loc + 1];
-                document.getElementById("passed").innerHTML = Keys[loc - 1];
-            }
+
+            console.log(loc);
             if (loc <= 0) {
-                var prev = (Keys.length - 1);
+                var prev = Keys[Keys.length - 1];
             }
             else {
                 var prev = Keys[loc - 1];
